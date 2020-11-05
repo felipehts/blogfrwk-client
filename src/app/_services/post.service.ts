@@ -17,4 +17,18 @@ export class PostService {
   getPostById(id: number): Observable<any> {
     return this.http.get(this.baseUrl + 'post/' + id, { responseType: 'json' });
   }
+
+  createPost(value: any): Observable<any> {
+    console.log(value);
+    return this.http.post(this.baseUrl + 'post', value, { responseType: 'json' });
+  }
+
+  deletePost(id: number): Observable<any> {
+    return this.http.delete(this.baseUrl + 'post/' + id, { responseType: 'text' });
+  }
+
+  updatePost(value: any): Observable<any> {
+    console.log(value);
+    return this.http.put(this.baseUrl + 'post', value, { responseType: 'json' });
+  }
 }    

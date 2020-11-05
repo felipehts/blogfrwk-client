@@ -9,14 +9,15 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { HomeComponent } from './home/home.component';
-import { BoardAdminComponent } from './board-admin/board-admin.component';
-import { BoardUserComponent } from './board-user/board-user.component';
-import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
 import { ProfileComponent } from './profile/profile.component';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { PostComponent } from './post/post.component';
 import { CommentsComponent } from './comments/comments.component';
+import { NgxSummernoteModule } from 'ngx-summernote';
+import { AlbumComponent } from './album/album.component';
+
+import { FileUploadModule } from 'ng2-file-upload';
 
 
 @NgModule({
@@ -25,18 +26,18 @@ import { CommentsComponent } from './comments/comments.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
-    BoardAdminComponent,
-    BoardUserComponent,
-    BoardModeratorComponent,
     ProfileComponent,
     PostComponent,
-    CommentsComponent
+    CommentsComponent,
+    AlbumComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxSummernoteModule,
+    FileUploadModule
   ],
   providers: [authInterceptorProviders],
   bootstrap: [AppComponent]

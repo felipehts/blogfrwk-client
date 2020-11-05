@@ -1,0 +1,33 @@
+<br/><br/>
+<div class="container" *ngIf="isLoggedIn">
+  <input type="file" name="file" ng2FileSelect [uploader]="uploader" />
+  <button type="button" class="btn btn-success btn-s" (click)="uploader.uploadAll()"
+    [disabled]="!uploader.getNotUploadedItems().length">
+    Upload
+  </button>
+</div>
+
+<br/>
+
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+		<table class="table table-image">
+		  <thead>
+		    <tr>
+		      <th scope="col">Image</th>
+		      <th scope="col"></th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr *ngFor="let album of albums" >
+		      <td class="w-25">
+			      <img src="/assets/album/{{album.path}}" class="img-fluid img-thumbnail" style="max-width: 100% !important;"  alt="Sheep">
+		      </td>
+		      <td><a  *ngIf="userIdLogged != null && userIdLogged == album.idUser" (click)="deleteFile(album.name)" style="color: red;"  href="">Remove</a></td>
+		    </tr>
+		  </tbody>
+		</table>   
+    </div>
+  </div>
+</div>

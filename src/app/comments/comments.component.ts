@@ -12,7 +12,7 @@ import { TokenStorageService } from '../_services/token-storage.service';
 })
 export class CommentsComponent implements OnInit {
   @Input() public idPost: number;
-  @Input()  reloadCommentsSubject: Subject<boolean> = new Subject<boolean>();
+  @Input() reloadCommentsSubject: Subject<boolean> = new Subject<boolean>();
   comments: Observable<any[]>;
   userIdLogged: number;
 
@@ -22,10 +22,10 @@ export class CommentsComponent implements OnInit {
     this.reloadData();
 
     this.reloadCommentsSubject.subscribe(response => {
-       this.reloadData();
+      this.reloadData();
     });
-    
-  
+
+
   }
 
   deleteComment(id: number) {
@@ -35,22 +35,23 @@ export class CommentsComponent implements OnInit {
           this.reloadData();
         },
         error => console.log(error));
-        return false;
+    return false;
   }
 
 
+
   reloadData() {
-    if(this.token.getUser() != null){
+    if (this.token.getUser() != null) {
       this.userIdLogged = this.token.getUser().id;
     }
-   
+
     this.commentService.getAllByIdPost(this.idPost).subscribe(
       data => {
         this.comments = data;
       }, error => {
         console.log(error)
       });
-    }
+  }
 
 
 }

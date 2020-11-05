@@ -40,16 +40,17 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
     content: string;
-
+  isLoggedIn = false;
 
 
 // posts: Array<any>;
    posts: Observable<Post[]>;
 
-  constructor(private postService: PostService, private userService: UserService,
+  constructor(private tokenStorageService: TokenStorageService, private postService: PostService, private userService: UserService,
     private router: Router, private token: TokenStorageService) {}
 
   ngOnInit() {
+    
       this.reloadData();
     /*
          this.userService.getPublicContent().subscribe(
@@ -64,6 +65,9 @@ export class HomeComponent implements OnInit {
   }
 
     reloadData() {
+         if (this.tokenStorageService.getToken() != null) {
+      this.isLoggedIn = !!this.tokenStorageService.getToken();
+    }
         this.postService.getAllPosts().subscribe(data => {
       this.posts = data;
     });

@@ -1,31 +1,34 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css"
+    integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous" />
 <section class="blog-listing gray-bg">
-     
-        <div class="container">
-            <div class="row align-items-start">
-                <div class="col-lg-12 m-15px-tb">
-                    <div class="row">
-                        <div *ngFor="let post of posts" class="col-sm-6">
-                            <div class="blog-grid">
-                                <div class="blog-info">
-                                    <h5><a href="/post?id={{post.id}}">{{post.title}}</a></h5>
-                                    <p>{{post.description}}</p>
-                                    <div class="btn-bar">
-                                        <a href="/post?id={{post.id}}" class="px-btn-arrow">
-                                            <span>Read</span>
-                                            <i class="arrow"></i>
-                                        </a>
-                                    </div>
+
+    <!-- <img src="/assets/teste.png" />-->
+    <div class="container">
+        <div class="row align-items-start">
+            <div class="col-lg-12 m-15px-tb">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div *ngIf="isLoggedIn" class="send">
+                             <h5><a href="/post?id=0">New Post</a></h5>
+                        </div>
+                    </div>
+                    <div *ngFor="let post of posts" class="col-sm-6">
+                        <div class="blog-grid">
+                            <div class="blog-info">
+                                <h5><a href="/post?id={{post.id}}">{{post.title}}</a></h5>
+                                <div [ngxSummernoteView]="post.description"></div>
+                                <div class="btn-bar">
+                                    <a href="/post?id={{post.id}}" class="px-btn-arrow">
+                                        <span>Read</span>
+                                        <i class="arrow"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-
             </div>
+
         </div>
-    </section>
-
-
-
-    
+    </div>
+</section>

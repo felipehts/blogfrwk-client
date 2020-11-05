@@ -20,7 +20,12 @@
     "@angular/platform-browser-dynamic": "~10.2.0",
     "@angular/router": "~10.2.0",
     "bootstrap": "^4.5.3",
+    "jquery": "^3.5.1",
+    "ng2-file-upload": "^1.4.0",
+    "ngx-summernote": "^0.8.0",
     "rxjs": "~6.6.0",
+    "rxjs-compat": "^6.6.3",
+    "summernote": "^0.8.18",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
   },

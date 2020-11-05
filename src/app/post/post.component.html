@@ -1,10 +1,12 @@
 <div class="blog-single gray-bg">
         <div class="container">
             <div class="row align-items-start">
-                <div class="col-lg-12 m-15px-tb">
+                <div class="col-lg-12 m-15px-tb" *ngIf="post.id !=0 " >
+                    <a *ngIf="isLoggedIn && userIdLogged == post.user.id" style="color: red;" (click)="deletePost(post.id)" href="">Remove {{post.id}}</a>
                     <article class="article">
                         <div class="article-title">
-                            <h2>{{post.title}}</h2>
+                            <h2 *ngIf="!isLoggedIn || userIdLogged != post.user.id">{{post.title}}</h2>
+                            <input *ngIf="isLoggedIn && userIdLogged == post.user.id" name="title" style="width: 100%;" [(ngModel)]="post.title" >
                             <div class="media">
                                 <div class="avatar">
                                     <img src="https://bootdey.com/img/Content/avatar/avatar1.png" title="" alt="">
@@ -16,7 +18,14 @@
                             </div>
                         </div>
                         <div class="article-content">
-                       <h2>{{post.description}}</h2>
+                        <div *ngIf="isLoggedIn && userIdLogged == post.user.id"  [ngxSummernote] [(ngModel)]="post.description"></div>
+                       <div *ngIf="!isLoggedIn || userIdLogged != post.user.id" [ngxSummernoteView]="post.description" ></div>
+                            <br/> <br/>
+                          <div class="col-md-12">
+                                    <div class="send">
+                                        <button (click)="updatePost(post.id)" *ngIf="isLoggedIn && userIdLogged == post.user.id"  class="px-btn theme"><span>Submit</span> <i class="arrow"></i></button>
+                                    </div>
+                           </div>
                         </div>
                         <!--
                         <div class="nav tag-cloud">
@@ -31,7 +40,7 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                     
-                                        <textarea #message="ngModel" [(ngModel)]="description" required  minlength="5"  name="message" id="message" placeholder="Your message *" rows="4" class="form-control"></textarea>
+                                        <textarea #message="ngModel" [(ngModel)]="descriptionComment" required  minlength="5"  name="message" id="message" placeholder="Your message *" rows="4" class="form-control"></textarea>
                                         <div class="alert-danger" *ngIf="f.submitted && message.invalid">
                                             <div *ngIf="message.errors.required">Message is required</div>
                                             <div *ngIf="message.errors.minlength">
@@ -70,6 +79,28 @@
                 </div>
                 
             </div>
+
+
+
+            <div class="col-lg-12 m-15px-tb" *ngIf="post.id ==0 " >
+                    <article class="article">
+                            <h2>New Post</h2>
+                        <div class="article-title">
+                            Title:
+                            <input *ngIf="isLoggedIn" name="title" style="width: 100%;" [(ngModel)]="post.title" >
+                        </div>
+                        <div class="article-content">
+                             Description:
+                        <div *ngIf="isLoggedIn"  [ngxSummernote] [(ngModel)]="post.description"></div>
+                            <br/> <br/>
+                          <div class="col-md-12">
+                                    <div class="send">
+                                        <button (click)="createPost()" *ngIf="isLoggedIn"  class="px-btn theme"><span>Submit</span> <i class="arrow"></i></button>
+                                    </div>
+                           </div>
+                        </div>
+                        </article>
+                </div>
         </div>
     </div>
 
