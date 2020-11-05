@@ -10,8 +10,8 @@
                                     <img src="https://bootdey.com/img/Content/avatar/avatar1.png" title="" alt="">
                                 </div>
                                 <div class="media-body">
-                                    <label>Rachel Roth</label>
-                                    <span>26 FEB 2020</span>
+                                    <label>{{post.user.username}}</label>
+                                    <span>{{post.date}}</span>
                                 </div>
                             </div>
                         </div>
@@ -24,38 +24,49 @@
                         </div>
                         -->
                     </article>
-                    <div class="contact-form article-comment">
+                    <div class="contact-form article-comment" *ngIf="isLoggedIn">
                         <h4>Leave a Reply</h4>
-                        <form id="contact-form" method="POST">
+                        <form *ngIf="!isSucessCommentCreated" id="contact-form" name="form" method="POST" #f="ngForm" (ngSubmit)="f.form.valid && createComment()" >
                             <div class="row">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input name="Name" id="name" placeholder="Name *" class="form-control" type="text">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <input name="Email" id="email" placeholder="Email *" class="form-control" type="email">
-                                    </div>
-                                </div>
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <textarea name="message" id="message" placeholder="Your message *" rows="4" class="form-control"></textarea>
+                                    
+                                        <textarea #message="ngModel" [(ngModel)]="description" required  minlength="5"  name="message" id="message" placeholder="Your message *" rows="4" class="form-control"></textarea>
+                                        <div class="alert-danger" *ngIf="f.submitted && message.invalid">
+                                            <div *ngIf="message.errors.required">Message is required</div>
+                                            <div *ngIf="message.errors.minlength">
+                                                Message must be at least 5 characters
+                                            </div>
+                                        </div>
+                                    
                                     </div>
+
                                 </div>
                                 <div class="col-md-12">
                                     <div class="send">
-                                        <button class="px-btn theme"><span>Submit</span> <i class="arrow"></i></button>
+                                        <button  class="px-btn theme"><span>Submit</span> <i class="arrow"></i></button>
                                     </div>
                                 </div>
                             </div>
                         </form>
+
+                            <div class="alert alert-success" *ngIf="isSucessCommentCreated">
+                                 Comment registered successfully!
+                            </div>
    
+                    </div>
+
+                    <div class="contact-form article-comment" *ngIf="!isLoggedIn">
+                            <div class="alert alert-danger" >
+                                 To comment you must be logged in!
+                            </div>
+
                     </div>
 
 
                 <br/><br/>
-                <app-comentario></app-comentario>
+              
+                <app-comments [reloadCommentsSubject]="reloadCommentsSubject.asObservable()" [idPost]="postId" ></app-comments>
                 </div>
                 
             </div>

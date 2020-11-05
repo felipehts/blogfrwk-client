@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "blogfrwk-client"
+    }
+  },
+  "defaultProject": "blogfrwk-client",
+  "cli": {
+    "analytics": "97f49bdb-a03c-4dc3-9784-8ef51d1b8788"
+  }
 }

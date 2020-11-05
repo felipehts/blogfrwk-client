@@ -1,0 +1,29 @@
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet">
+<section class="content-item" id="comments">
+    <div class="container">   
+    	<div class="row">
+            <div class="col-sm-12">   
+                
+                <h3>Comments</h3>
+                
+                <!-- COMMENT - START -->
+                <div *ngFor="let comment of comments"  class="media">
+                    <a class="pull-left" href="#"><img class="media-object" src="//ssl.gstatic.com/accounts/ui/avatar_2x.png" alt=""></a>
+                    <div class="media-body">
+                        <h4 class="media-heading">{{comment.user.username}}</h4>
+                        <p>{{comment.text}}</p>
+                        <ul class="list-unstyled list-inline media-detail pull-left">
+                            <li><i class="fa fa-calendar"></i>{{comment.date}}</li>
+                        </ul>
+                        <ul  *ngIf="userIdLogged != null && userIdLogged == comment.user.id" class="list-unstyled list-inline media-detail pull-right">
+                            <li class=""><a style="color: red;" (click)="deleteComment(comment.id)" href="">Remove</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- COMMENT - END -->
+                
+            
+            </div>
+        </div>
+    </div>
+</section>

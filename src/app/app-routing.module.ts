@@ -9,7 +9,7 @@ import { BoardUserComponent } from './board-user/board-user.component';
 import { BoardModeratorComponent } from './board-moderator/board-moderator.component';
 import { BoardAdminComponent } from './board-admin/board-admin.component';
 import { PostComponent } from './post/post.component';
-import { ComentarioComponent } from './comentario/comentario.component';
+import { CommentsComponent } from './comments/comments.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'mod', component: BoardModeratorComponent },
   { path: 'admin', component: BoardAdminComponent },
   { path: 'post', component: PostComponent },
-  { path: 'comentario', component: ComentarioComponent },
+  { path: 'comments', component: CommentsComponent },
   { path: '', redirectTo: 'home', pathMatch: 'full' }
 ];
 

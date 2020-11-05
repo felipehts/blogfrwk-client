@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { Post } from '../_models/post';
+import { CommentService } from '../_services/comment.service';
 import { PostService } from '../_services/post.service';
 
+import { Subject } from 'rxjs';
+import { TokenStorageService } from '../_services/token-storage.service';
 
 
 @Component({
@@ -11,25 +13,61 @@ import { PostService } from '../_services/post.service';
   styleUrls: ['./post.component.css']
 })
 
+
 export class PostComponent implements OnInit {
   params: Params;
-  post: Post = new Post();
- constructor(private postService: PostService,private route: ActivatedRoute){}
+  post: any = {};
+  description: string;
+  comment: any = {};
+  isSucessCommentCreated = false;
+  isLoggedIn = false;
+  postId: number;
+  reloadCommentsSubject: Subject<boolean> = new Subject<boolean>();
 
-  ngOnInit(): void {
-      this.route.queryParams.subscribe((params: Params) => {
-        this.params = params;
-        const id = params['id'];
 
+  constructor(private tokenStorageService: TokenStorageService, private commentService: CommentService, private postService: PostService, private route: ActivatedRoute) { }
 
-
- this.postService.getPostById(id).subscribe(data => {
-      this.post = data;
-      console.log(' post', this.post);
-    });
-        
-      });
+  reloadComments() {
+    this.reloadCommentsSubject.next(true);
   }
+  ngOnInit(): void {
+
+    if (this.tokenStorageService.getToken() != null) {
+      this.isLoggedIn = !!this.tokenStorageService.getToken();
+    }
+
+    this.route.queryParams.subscribe((params: Params) => {
+      this.params = params;
+      const id = params['id'];
+      this.postId = id;
+      this.reloadData(id);
+    });
+  }
+
+  reloadData(id: number) {
+    this.postService.getPostById(id).subscribe(data => {
+      this.post = data;
+    });
+  }
+
+  createComment() {
+    this.comment.idPost = this.post.id;
+    this.comment.description = this.description;
+
+    this.commentService.createComment(this.comment)
+      .subscribe(
+        () => {
+          this.reloadData(this.post.id);
+          this.reloadComments();
+          this.isSucessCommentCreated = true;
+        },
+        error => {
+          console.log(error)
+          this.isSucessCommentCreated = false;
+        }
+      );
+  }
+
 
 }
 

@@ -16,7 +16,7 @@ import { ProfileComponent } from './profile/profile.component';
 
 import { authInterceptorProviders } from './_helpers/auth.interceptor';
 import { PostComponent } from './post/post.component';
-import { ComentarioComponent } from './comentario/comentario.component';
+import { CommentsComponent } from './comments/comments.component';
 
 
 @NgModule({
@@ -30,7 +30,7 @@ import { ComentarioComponent } from './comentario/comentario.component';
     BoardModeratorComponent,
     ProfileComponent,
     PostComponent,
-    ComentarioComponent
+    CommentsComponent
   ],
   imports: [
     BrowserModule,
